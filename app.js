@@ -16,12 +16,10 @@ var data = {
       content: {
         stepName: 'question1',
         question: 'question1?',
-        responseChoices: [
-          'response1',
-          'response2',
-          'response3',
-          'response4'
-        ],
+        responseChoice1: 'responseChoice1',
+        responseChoice2: 'responseChoice2',
+        responseChoice3: 'responseChoice3',
+        responseChoice4: 'responseChoice4',
         button: 'Submit'
       },
       correctResponse: 'response1'
@@ -33,12 +31,10 @@ var data = {
       content: {
         stepName: 'question2',
         question: 'question2?',
-        responseChoices: [
-          'response1',
-          'response2',
-          'response3',
-          'response4'
-        ],
+        responseChoice1: 'responseChoice1',
+        responseChoice2: 'responseChoice2',
+        responseChoice3: 'responseChoice3',
+        responseChoice4: 'responseChoice4',
         button: 'Submit'
       },
       correctResponse: 'response1'
@@ -50,12 +46,10 @@ var data = {
       content: {
         stepName: 'question3',
         question: 'question3?',
-        responseChoices: [
-          'response1',
-          'response2',
-          'response3',
-          'response4'
-        ],
+        responseChoice1: 'responseChoice1',
+        responseChoice2: 'responseChoice2',
+        responseChoice3: 'responseChoice3',
+        responseChoice4: 'responseChoice4',
         button: 'Submit'
       },
       correctResponse: 'response1'
@@ -67,12 +61,10 @@ var data = {
       content: {
         stepName: 'question4',
         question: 'question4?',
-        responseChoices: [
-          'response1',
-          'response2',
-          'response3',
-          'response4'
-        ],
+        responseChoice1: 'responseChoice1',
+        responseChoice2: 'responseChoice2',
+        responseChoice3: 'responseChoice3',
+        responseChoice4: 'responseChoice4',
         button: 'Submit'
       },
       correctResponse: 'response1'
@@ -84,12 +76,10 @@ var data = {
       content: {
         stepName: 'question5',
         question: 'question5?',
-        responseChoices: [
-          'response1',
-          'response2',
-          'response3',
-          'response4'
-        ],
+        responseChoice1: 'responseChoice1',
+        responseChoice2: 'responseChoice2',
+        responseChoice3: 'responseChoice3',
+        responseChoice4: 'responseChoice4',
         button: 'Submit'
       },
       correctResponse: 'response1'
@@ -99,7 +89,7 @@ var data = {
       stepType: 'end',
       content: {
         stepName: 'end',
-        headline: 'Overall Score',
+        headline: 'Overall Score:',
         button: 'Start New Quiz'
       }
     }   
@@ -127,17 +117,30 @@ function responseChosen(state) {
 function updateState(state, data) {
 
   state.currentStepNum++;
-  console.log(state);
+  
 };
 
-// RENDERING STATE ///////////////////////////////////////////////////////
+
+
+// // RENDERING STATE ///////////////////////////////////////////////////////
+
+// allElements is all possible dom elements
+// if content exists for that element fill it in
+// if not remove the element
+function renderStepContent(dom, stepContent) {
+  var allElements = Object.keys(dom);
+  allElements.forEach(function(domElement) {
+    if (stepContent[domElement]) {
+      $(dom[domElement]).html(stepContent[domElement]).show();
+    } else {
+      $(dom[domElement]).html('').hide();
+    }
+  });
+}
+
 function renderState(state, data, dom) {
   var stepContent = data.steps[state.currentStepNum].content;
-  var stepName = stepContent.stepName;
-  var button = stepContent.button;
-
-  dom.stepName.text(stepName);
-  dom.button.html(button);
+  renderStepContent(dom, stepContent);
 };
 
 
@@ -156,7 +159,12 @@ function handleButtonClick(dom) {
 $(function() {
   var dom = {};
   dom.stepName = $('.js-stepName');
+  dom.headline = $('.js-headline');
   dom.button = $('.js-button');
-
+  dom.question = $('.js-question');
+  dom.responseChoice1 = $('.js-responseChoice1');
+  dom.responseChoice2 = $('.js-responseChoice2');
+  dom.responseChoice3 = $('.js-responseChoice3');
+  dom.responseChoice4 = $('.js-responseChoice4');
   handleButtonClick(dom);
 });

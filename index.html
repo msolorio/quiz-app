@@ -10,14 +10,61 @@
 <body>
   <div class="js-stepName">Intro</div>
   <h1 class="js-headline">Take a Quiz on Circuits</h1>
+  <div class="js-message"></div>
 
   <form action="">
     <h2 class="js-question"></h2>
-    <ul class="js-responses">
-      <li class="js-responseChoices js-responseChoice1"></li>
-      <li class="js-responseChoices js-responseChoice2"></li>
-      <li class="js-responseChoices js-responseChoice3"></li>
-      <li class="js-responseChoices js-responseChoice4"></li>
+    <ul class="responseChoices js-responseChoices">
+      <li data-input-group=0>
+        <input
+          type="radio"
+          name="responseChoice"
+          id=radioInput0
+          class="js-radioInput"
+          value=0
+        ></input>
+        <label
+          class="js-responseChoices js-responseChoice1"
+          for=radioInput0
+        ></label>
+      </li>
+      <li data-input-group=1>
+        <input
+          type="radio"
+          name="responseChoice"
+          id="radioInput1"
+          class="js-radioInput"
+          value=1
+        ></input>
+        <label
+          class="js-responseChoices js-responseChoice2"
+          for="radioInput1"
+        ></label>
+      </li>
+      <li data-inpu-group=2>
+        <input
+          type="radio"
+          name="responseChoice"
+          id="radioInput2"
+          value=2
+        ></input>
+        <label
+          class="js-responseChoices js-responseChoice3"
+          for="radioInput2"
+        ></label>
+      </li>
+      <li data-input-group=3>
+        <input
+          type="radio"
+          name="responseChoice"
+          id="radioInput3"
+          value=3
+        ></input>
+        <label
+          class="js-responseChoices js-responseChoice4"
+          for="radioInput3"
+        ></label>
+      </li>
     </ul>
     <button class="js-button">Start Quiz</button>
   </form>

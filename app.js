@@ -183,9 +183,11 @@ function handleLayout(state, data, dom) {
   if (stepType === 'question') {
     $(dom.responseChoices).show();
     $(dom.scoreCard).show();
+    $(dom.questionCounter).show();
   } else {
     $(dom.responseChoices).hide();
     $(dom.scoreCard).hide();
+    $(dom.questionCounter).hide();
   }
 };
 
@@ -264,7 +266,13 @@ function renderChosenResponseMessage(state, data, dom) {
 
 function checkToRemoveRadioCheck(state, dom) {
   if (!state.responseChosen) $(dom.checkedRadioButton).prop('checked', false);
-}
+};
+
+function renderQuestionCounter(state, data, dom) {
+  // we add 1 b/c the questions are indexed with zero index
+  $(dom.currentQuestionNum).html(state.currentQuestionNum + 1);
+  $(dom.totalQuestionNum).html(data.numOfQuestions);
+};
 
 function renderScoreCard(state, data, dom) {
   $(dom.numOfCorrect).html(state.numOfCorrect);
@@ -277,6 +285,7 @@ function renderStateOnQuestion(state, data, dom) {
     renderChosenResponse(state, data, dom);
     renderCorrectResponse(state, data, dom);
     checkToRemoveRadioCheck(state, dom);
+    renderQuestionCounter(state, data, dom);
     renderScoreCard(state, data, dom);
 };
 
@@ -316,6 +325,9 @@ $(function() {
   dom.responseChoices = '.js-responseChoices';
   dom.numOfCorrect = '.js-numOfCorrect';
   dom.numOfIncorrect = '.js-numOfIncorrect';
+  dom.questionCounter = '.js-questionCounter';
+  dom.currentQuestionNum = '.js-currentQuestionNum';
+  dom.totalQuestionNum = '.js-totalQuestionNum';
 
   dom.domContent.stepName = '.js-stepName';
   dom.domContent.headline = '.js-headline';

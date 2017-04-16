@@ -1,5 +1,6 @@
 .responseChoices,
-.scoreCard {
+.scoreCard,
+.questionCounter {
   display: none;
 }
 

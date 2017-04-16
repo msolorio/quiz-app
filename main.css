@@ -2,6 +2,12 @@
   display: none;
 }
 
-.correctResponse {
+.chosenResponse {
+  border: 2px solid #ff5500;
+}
+
+.correctResponse,
+.chosenResponse.correctResponse {
   border: 2px solid #33ff88;
 }
+

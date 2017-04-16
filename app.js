@@ -95,7 +95,8 @@ var data = {
         stepName: 'end',
         headline: 'Overall Score:',
         button: 'Start New Quiz'
-      }
+      },
+      lastStep: true
     }   
   ]
 };
@@ -204,24 +205,37 @@ function renderChooseResponseAlert(state, data, dom) {
   else $(dom.message).html('');
 };
 
-function renderShowCorrectResponse(state, data, dom) {
+function renderCorrectResponse(state, data, dom) {
   var correctResponseIndex = data.steps[state.currentStepNum].correctResponseIndex;
   if (state.showCorrectResponse === true) {
     $('.js-inputGroup[data-input-group="' + correctResponseIndex + '"]')
       .addClass('correctResponse');
   } else {
-    $('.js-inputGroup[data-input-group="' + correctResponseIndex + '"]')
-      .removeClass('correctResponse');
+    $('.correctResponse').removeClass('correctResponse');
   }
 };
+
+function renderChosenResponse(state, data, dom) {
+  var chosenResponseIndex = parseInt(state.chosenResponse);
+  if (state.showCorrectResponse === true) {
+    $('.js-inputGroup[data-input-group="' + chosenResponseIndex + '"]')
+      .addClass('chosenResponse');
+  } else {
+    $('.chosenResponse').removeClass('chosenResponse');
+  }
+}
+
+function checkToRemoveRadioCheck(state, dom) {
+  if (!state.responseChosen) $(dom.checkedRadioButton).prop('checked', false);
+}
 
 function renderStateOnQuestion(state, data, dom) {
     // if a response has not been chosen
     // TODO: will be moved to proper place
-    if (!state.responseChosen) $(dom.checkedRadioButton).prop('checked', false);
-
     renderChooseResponseAlert(state, data, dom);
-    renderShowCorrectResponse(state, data, dom);
+    renderChosenResponse(state, data, dom);
+    renderCorrectResponse(state, data, dom);
+    checkToRemoveRadioCheck(state, dom);
 };
 
 function renderState(state, data, dom) {

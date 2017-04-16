@@ -1,5 +1,5 @@
-// TODO: add increment score card functionality on state DONE
-// TODO: on render if response chosen disable radio buttons
+// TODO: render score card on bottom
+// TODO: add question counter on top
 
 // can get rid of stepName later - using for wiring up basic flow
 var data = {
@@ -201,7 +201,7 @@ function renderStepContent(dom, stepContent) {
 };
 
 function renderMessage(state, data, dom) {
-  var correctResponseIndex = data.steps[state.currentStepNum].correctResponseIndex;
+  var correctResponseIndex = data.steps[state.currentStepNum].correctResponseIndex || '';
   var chosenResponseCorrect = state.chosenResponse === correctResponseIndex.toString();
   switch(true) {
     case (state.alertToChooseResponse):
@@ -220,7 +220,7 @@ function renderMessage(state, data, dom) {
 
 function renderCorrectResponse(state, data, dom) {
   var correctResponseIndex = data.steps[state.currentStepNum].correctResponseIndex;
-  if (state.showCorrectResponse === true) {
+  if (state.showCorrectResponse) {
     $('.js-inputGroup[data-input-group="' + correctResponseIndex + '"]')
       .addClass('correctResponse');
   } else {
@@ -230,7 +230,7 @@ function renderCorrectResponse(state, data, dom) {
 
 function renderChosenResponse(state, data, dom) {
   var chosenResponseIndex = parseInt(state.chosenResponse);
-  if (state.showCorrectResponse === true) {
+  if (state.showCorrectResponse) {
     $('.js-inputGroup[data-input-group="' + chosenResponseIndex + '"]')
       .addClass('chosenResponse');
   } else {
@@ -238,14 +238,33 @@ function renderChosenResponse(state, data, dom) {
   }
 }
 
+function renderCorrectResponseMessages(state, data, dom) {
+  var correctResponseIndex = data.steps[state.currentStepNum].correctResponseIndex;
+  if (state.showCorrectResponse) {
+    $('.js-responseMessage[data-response-message="' + correctResponseIndex + '"]')
+      .html('Correct Response');
+  } else {
+    $('.js-responseMessage').html('');
+  }
+};
+
+function renderChosenResponseMessage(state, data, dom) {
+  var chosenResponseIndex = parseInt(state.chosenResponse);
+  if (state.showCorrectResponse) {
+    $('.js-responseMessage[data-response-message="' + chosenResponseIndex + '"]')
+      .html('Chosen Response');
+  } else {
+    $('.js-responseMessage').html('');
+  }
+};
+
 function checkToRemoveRadioCheck(state, dom) {
   if (!state.responseChosen) $(dom.checkedRadioButton).prop('checked', false);
 }
 
 function renderStateOnQuestion(state, data, dom) {
-    // if a response has not been chosen
-    // TODO: will be moved to proper place
-    renderMessage(state, data, dom);
+    renderChosenResponseMessage(state, data, dom);
+    renderCorrectResponseMessages(state, data, dom);
     renderChosenResponse(state, data, dom);
     renderCorrectResponse(state, data, dom);
     checkToRemoveRadioCheck(state, dom);
@@ -259,6 +278,7 @@ function renderState(state, data, dom) {
     renderStateOnQuestion(state, data, dom);
   }
   renderStepContent(dom, stepContent);
+  renderMessage(state, data, dom);
 };
 
 
@@ -281,6 +301,7 @@ $(function() {
   };
   dom.checkedRadioButton = 'input[type=radio]:checked';
   dom.message = '.js-message';
+  dom.responseMessage = '.js-responseMessage';
 
   dom.domContent.stepName = '.js-stepName';
   dom.domContent.headline = '.js-headline';

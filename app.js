@@ -180,9 +180,13 @@ function updateState(state, data, dom) {
 // RENDERING STATE ///////////////////////////////////////////////////////
 function handleLayout(state, data, dom) {
   var stepType = data.steps[state.currentStepNum].stepType;
-  var responseChoices = $('.js-responseChoices');
-  if (stepType === 'question') responseChoices.show();
-  else responseChoices.hide();
+  if (stepType === 'question') {
+    $(dom.responseChoices).show();
+    $(dom.scoreCard).show();
+  } else {
+    $(dom.responseChoices).hide();
+    $(dom.scoreCard).hide();
+  }
 };
 
 // allElements is all possible dom elements
@@ -262,12 +266,18 @@ function checkToRemoveRadioCheck(state, dom) {
   if (!state.responseChosen) $(dom.checkedRadioButton).prop('checked', false);
 }
 
+function renderScoreCard(state, data, dom) {
+  $(dom.numOfCorrect).html(state.numOfCorrect);
+  $(dom.numOfIncorrect).html(state.numOfIncorrect);
+};
+
 function renderStateOnQuestion(state, data, dom) {
     renderChosenResponseMessage(state, data, dom);
     renderCorrectResponseMessages(state, data, dom);
     renderChosenResponse(state, data, dom);
     renderCorrectResponse(state, data, dom);
     checkToRemoveRadioCheck(state, dom);
+    renderScoreCard(state, data, dom);
 };
 
 function renderState(state, data, dom) {
@@ -302,6 +312,10 @@ $(function() {
   dom.checkedRadioButton = 'input[type=radio]:checked';
   dom.message = '.js-message';
   dom.responseMessage = '.js-responseMessage';
+  dom.scoreCard = '.js-scoreCard';
+  dom.responseChoices = '.js-responseChoices';
+  dom.numOfCorrect = '.js-numOfCorrect';
+  dom.numOfIncorrect = '.js-numOfIncorrect';
 
   dom.domContent.stepName = '.js-stepName';
   dom.domContent.headline = '.js-headline';

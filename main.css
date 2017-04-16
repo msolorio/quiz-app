@@ -1,4 +1,5 @@
-.responseChoices {
+.responseChoices,
+.scoreCard {
   display: none;
 }
 
@@ -10,4 +11,3 @@
 .chosenResponse.correctResponse {
   border: 2px solid #33ff88;
 }
-

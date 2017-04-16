@@ -200,9 +200,22 @@ function renderStepContent(dom, stepContent) {
   });
 };
 
-function renderChooseResponseAlert(state, data, dom) {
-  if (state.alertToChooseResponse) $(dom.message).html('Please Choose a Response');
-  else $(dom.message).html('');
+function renderMessage(state, data, dom) {
+  var correctResponseIndex = data.steps[state.currentStepNum].correctResponseIndex;
+  var chosenResponseCorrect = state.chosenResponse === correctResponseIndex.toString();
+  switch(true) {
+    case (state.alertToChooseResponse):
+      $(dom.message).html('Please Choose a Response');
+      break;
+    case (state.responseChosen && chosenResponseCorrect):
+      $(dom.message).html('Response Correct');
+      break;
+    case (state.responseChosen && !chosenResponseCorrect):
+      $(dom.message).html('Response Incorrect');
+      break;
+    default:
+      $(dom.message).html('');
+  }
 };
 
 function renderCorrectResponse(state, data, dom) {
@@ -232,7 +245,7 @@ function checkToRemoveRadioCheck(state, dom) {
 function renderStateOnQuestion(state, data, dom) {
     // if a response has not been chosen
     // TODO: will be moved to proper place
-    renderChooseResponseAlert(state, data, dom);
+    renderMessage(state, data, dom);
     renderChosenResponse(state, data, dom);
     renderCorrectResponse(state, data, dom);
     checkToRemoveRadioCheck(state, dom);

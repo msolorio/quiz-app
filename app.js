@@ -26,7 +26,7 @@ var data = {
         responseChoice4: 'responseChoice4',
         button: 'Submit'
       },
-      correctResponse: '0'
+      correctResponseIndex: '0'
     },
 
     {
@@ -41,7 +41,7 @@ var data = {
         responseChoice4: 'responseChoice4',
         button: 'Submit'
       },
-      correctResponse: '0'
+      correctResponseIndex: '0'
     },
 
     {
@@ -56,7 +56,7 @@ var data = {
         responseChoice4: 'responseChoice4',
         button: 'Submit'
       },
-      correctResponse: '0'
+      correctResponseIndex: '0'
     },
 
     {
@@ -71,7 +71,7 @@ var data = {
         responseChoice4: 'responseChoice4',
         button: 'Submit'
       },
-      correctResponse: '0'
+      correctResponseIndex: '0'
     },
 
     {
@@ -86,7 +86,7 @@ var data = {
         responseChoice4: 'responseChoice4',
         button: 'Submit'
       },
-      correctResponse: '0'
+      correctResponseIndex: '0'
     },
 
     {
@@ -127,9 +127,9 @@ function updateStateAlertToChooseResponse(state) {
 }
 
 function incrementScoreCard(state, data) {
-  var correctResponse = data.steps[state.currentStepNum].correctResponse;
+  var correctResponseIndex = data.steps[state.currentStepNum].correctResponseIndex;
   
-  if (state.chosenResponse === correctResponse.toString()) state.numOfCorrect++;
+  if (state.chosenResponse === correctResponseIndex.toString()) state.numOfCorrect++;
   else state.numOfIncorrect++;
 }
 
@@ -199,27 +199,20 @@ function renderStepContent(dom, stepContent) {
   });
 };
 
-function renderChooseAlertResponse(state, data, dom) {
-  if (state.alertToChooseResponse) {
-    $(dom.message).html('Please Choose a Response');
+function renderChooseResponseAlert(state, data, dom) {
+  if (state.alertToChooseResponse) $(dom.message).html('Please Choose a Response');
+  else $(dom.message).html('');
+};
+
+function renderShowCorrectResponse(state, data, dom) {
+  var correctResponseIndex = data.steps[state.currentStepNum].correctResponseIndex;
+  if (state.showCorrectResponse === true) {
+    $('.js-inputGroup[data-input-group="' + correctResponseIndex + '"]')
+      .addClass('correctResponse');
   } else {
-    $(dom.message).html('');
+    $('.js-inputGroup[data-input-group="' + correctResponseIndex + '"]')
+      .removeClass('correctResponse');
   }
-};
-
-function renderShowCorrectResponse() {
-  //
-};
-
-function renderNextStep() {
-  //
-};
-
-function handleRenderCorrectResponse() {
-  
-  renderNextStep();
-
-  renderShowCorrectResponse();
 };
 
 function renderStateOnQuestion(state, data, dom) {
@@ -227,8 +220,8 @@ function renderStateOnQuestion(state, data, dom) {
     // TODO: will be moved to proper place
     if (!state.responseChosen) $(dom.checkedRadioButton).prop('checked', false);
 
-    renderChooseAlertResponse(state, data, dom);
-    handleRenderCorrectResponse();
+    renderChooseResponseAlert(state, data, dom);
+    renderShowCorrectResponse(state, data, dom);
 };
 
 function renderState(state, data, dom) {

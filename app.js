@@ -101,7 +101,7 @@ var data = {
   ]
 };
 
-window.state = {
+var state = {
   currentStepNum: 0,
   currentQuestionNum: 0,
   chosenResponse: null,
@@ -116,8 +116,6 @@ window.state = {
 function getChosenResponse(state, dom) {
   return $('input[type=radio]:checked').val();
 };
-
-// CHECKING STATE ///////////////////////////////////////////////////////
 
 // UPDATING STATE ///////////////////////////////////////////////////////
 
@@ -143,11 +141,21 @@ function updateStateNextStep(state) {
   state.chosenResponse = null;
   state.responseChosen = false;
   state.showCorrectResponse = false;
-  state.currentQuestionNum++;
-  state.currentStepNum++;
+  // if current step is not last step
+  // increment step
+  if (state.currentStepNum < data.steps.length - 1) {
+    state.currentStepNum++;
+  // if it is last step set currentStepNum to 0 and reset state
+  } else {
+    state.currentStepNum = 0;
+    state.currentQuestionNum = 0;
+    state.numOfCorrect = 0;
+    state.numOfIncorrect = 0;
+  }
 }
 
 function handleStateCorrectResponse(state, data) {
+  
   // if chosen response and correct response not shown
   // update state to show correct response
   if (state.chosenResponse && !state.showCorrectResponse) {
@@ -157,6 +165,7 @@ function handleStateCorrectResponse(state, data) {
   // update state for next step
   } else if (state.chosenResponse && state.showCorrectResponse) {
     updateStateNextStep(state);
+    state.currentQuestionNum++;
   }
 }
 
@@ -171,10 +180,10 @@ function updateState(state, data, dom) {
   var stepType = data.steps[state.currentStepNum].stepType;
   if (stepType === 'question') {
     updateStateOnQuestion(state, data, dom);
-  } else {
-    state.currentStepNum++;
   }
-  console.log('state after update state:', state);
+  else {
+    updateStateNextStep(state);
+  }
 };
 
 // RENDERING STATE ///////////////////////////////////////////////////////
@@ -269,7 +278,7 @@ function checkToRemoveRadioCheck(state, dom) {
 };
 
 function renderQuestionCounter(state, data, dom) {
-  // we add 1 b/c the questions are indexed with zero index
+  // we add 1 b/c currentQuestionNum is indexed with zero index
   $(dom.currentQuestionNum).html(state.currentQuestionNum + 1);
   $(dom.totalQuestionNum).html(data.numOfQuestions);
 };
@@ -277,6 +286,12 @@ function renderQuestionCounter(state, data, dom) {
 function renderScoreCard(state, data, dom) {
   $(dom.numOfCorrect).html(state.numOfCorrect);
   $(dom.numOfIncorrect).html(state.numOfIncorrect);
+};
+
+function renderOverallScore(state, data, dom) {
+  
+  $(dom.domContent.headline)
+    .append('<div class="overallScore">' + state.numOfCorrect +  '/' + data.numOfQuestions + '</div>');
 };
 
 function renderStateOnQuestion(state, data, dom) {
@@ -290,13 +305,14 @@ function renderStateOnQuestion(state, data, dom) {
 };
 
 function renderState(state, data, dom) {
-  console.log('in renderState');
   var step = data.steps[state.currentStepNum];
   var stepContent = step.content;
+  renderStepContent(dom, stepContent);
   if (step.stepType === 'question') {
     renderStateOnQuestion(state, data, dom);
+  } else if (step.stepType === 'end') {
+    renderOverallScore(state, data, dom);
   }
-  renderStepContent(dom, stepContent);
   renderMessage(state, data, dom);
 };
 
@@ -305,8 +321,7 @@ function renderState(state, data, dom) {
 function handleButtonClick(dom) {
   $(dom.domContent.button).click(function(event) {
     event.preventDefault();
-    console.log('state after button click:', state);
-
+    
     updateState(state, data, dom);
     handleLayout(state, data, dom);
     renderState(state, data, dom);
@@ -321,15 +336,19 @@ $(function() {
   dom.checkedRadioButton = 'input[type=radio]:checked';
   dom.message = '.js-message';
   dom.responseMessage = '.js-responseMessage';
-  dom.scoreCard = '.js-scoreCard';
   dom.responseChoices = '.js-responseChoices';
+
+  // score card
+  dom.scoreCard = '.js-scoreCard';
   dom.numOfCorrect = '.js-numOfCorrect';
   dom.numOfIncorrect = '.js-numOfIncorrect';
+
+  // question counter
   dom.questionCounter = '.js-questionCounter';
   dom.currentQuestionNum = '.js-currentQuestionNum';
   dom.totalQuestionNum = '.js-totalQuestionNum';
 
-  dom.domContent.stepName = '.js-stepName';
+  // content that switches out from step to step
   dom.domContent.headline = '.js-headline';
   dom.domContent.button = '.js-button';
   dom.domContent.question = '.js-question';
@@ -337,5 +356,6 @@ $(function() {
   dom.domContent.responseChoice2 = '.js-responseChoice2';
   dom.domContent.responseChoice3 = '.js-responseChoice3';
   dom.domContent.responseChoice4 = '.js-responseChoice4';
+
   handleButtonClick(dom);
 });

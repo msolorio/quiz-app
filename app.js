@@ -1,7 +1,3 @@
-// TODO: render score card on bottom
-// TODO: add question counter on top
-
-// can get rid of stepName later - using for wiring up basic flow
 var data = {
   numOfQuestions: 5,
   steps: [
@@ -19,14 +15,14 @@ var data = {
       questionNum: 1,
       content: {
         stepName: 'question1',
-        question: 'question1?',
-        responseChoice1: 'responseChoice1',
-        responseChoice2: 'responseChoice2',
-        responseChoice3: 'responseChoice3',
-        responseChoice4: 'responseChoice4',
+        question: 'This inhibits the flow of current and is made from a variety of materials.',
+        responseChoice1: 'inductor',
+        responseChoice2: 'resistor',
+        responseChoice3: 'capacitor',
+        responseChoice4: 'relay',
         button: 'Submit'
       },
-      correctResponseIndex: '0'
+      correctResponseIndex: '1'
     },
 
     {
@@ -34,14 +30,14 @@ var data = {
       questionNum: 2,
       content: {
         stepName: 'question2',
-        question: 'question2?',
-        responseChoice1: 'responseChoice1',
-        responseChoice2: 'responseChoice2',
-        responseChoice3: 'responseChoice3',
-        responseChoice4: 'responseChoice4',
+        question: 'This consists of two plates separated by a dielectric and can store a charge. Useful in tuning and filtering circuits, it blocks DC while passing AC.',
+        responseChoice1: 'inductor',
+        responseChoice2: 'relay',
+        responseChoice3: 'transistor',
+        responseChoice4: 'capacitor',
         button: 'Submit'
       },
-      correctResponseIndex: '0'
+      correctResponseIndex: '3'
     },
 
     {
@@ -49,11 +45,11 @@ var data = {
       questionNum: 3,
       content: {
         stepName: 'question3',
-        question: 'question3?',
-        responseChoice1: 'responseChoice1',
-        responseChoice2: 'responseChoice2',
-        responseChoice3: 'responseChoice3',
-        responseChoice4: 'responseChoice4',
+        question: 'This can consist of a simple wire wound into a helix. It developes a magnetic field when current passes through it. It is also used in tuning circuits and filters. This one passes DC and blocks AC.',
+        responseChoice1: 'inductor',
+        responseChoice2: 'transistor',
+        responseChoice3: 'capacitor',
+        responseChoice4: 'semiconductor',
         button: 'Submit'
       },
       correctResponseIndex: '0'
@@ -64,14 +60,14 @@ var data = {
       questionNum: 4,
       content: {
         stepName: 'question4',
-        question: 'question4?',
-        responseChoice1: 'responseChoice1',
-        responseChoice2: 'responseChoice2',
-        responseChoice3: 'responseChoice3',
-        responseChoice4: 'responseChoice4',
+        question: 'This is a type of semiconductor that only allows current to flow in one direction. It is usually used to rectify AC signals (conversion to DC).',
+        responseChoice1: 'univac',
+        responseChoice2: 'diode',
+        responseChoice3: 'transformer',
+        responseChoice4: 'inductor',
         button: 'Submit'
       },
-      correctResponseIndex: '0'
+      correctResponseIndex: '1'
     },
 
     {
@@ -79,14 +75,14 @@ var data = {
       questionNum: 5,
       content: {
         stepName: 'question5',
-        question: 'question5?',
-        responseChoice1: 'responseChoice1',
-        responseChoice2: 'responseChoice2',
-        responseChoice3: 'responseChoice3',
-        responseChoice4: 'responseChoice4',
+        question: 'This consists of an electromagnet, which is used to open or close a contact. It is used in switching that requires isolation or high power.',
+        responseChoice1: 'inductor',
+        responseChoice2: 'rheostat',
+        responseChoice3: 'relay',
+        responseChoice4: 'transistor',
         button: 'Submit'
       },
-      correctResponseIndex: '0'
+      correctResponseIndex: '2'
     },
 
     {

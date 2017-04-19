@@ -4,92 +4,99 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta type="description" content="take a quiz on circuits">
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,900" rel="stylesheet">
+  <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="main.css">
-  <title>Quiz App</title>
+  <title>Take a Quiz on Circuits</title>
 </head>
-<body>
-  <div class="js-questionCounter questionCounter">
-    Question&nbsp;
-    <span class="js-currentQuestionNum"></span>
-    of&nbsp;
-    <span class="js-totalQuestionNum"></span>
-  </div>
-  <h1 class="js-headline">Take a Quiz on Circuits</h1>
-  <div class="js-message"></div>
+<body class="body">
+  <div class="container">
+    <div class="questionCounter js-questionCounter">
+      Question&nbsp;
+      <span class="js-currentQuestionNum"></span>
+      of&nbsp;
+      <span class="js-totalQuestionNum"></span>
+    </div>
+    <h1 class="headline js-headline">Take a Quiz on Circuits</h1>
+    <div class="message js-message"></div>
 
-  <form action="">
-    <h2 class="js-question"></h2>
-    <ul class="responseChoices js-responseChoices">
-      <div class="js-inputGroupOuter">
-        <span class="js-inputGroup" data-input-group="0">
-          <input
-            type="radio"
-            name="responseChoice"
-            id=radioInput0
-            class="js-radioInput"
-            value=0
-          ></input>
-          <label
-            class="js-responseChoices js-responseChoice1"
-            for=radioInput0
-          ></label>
-        </span>
-        <span class="js-responseMessage" data-response-message="0"></span>
-      </div>
-      <div class="js-inputGroupOuter">
-        <span class="js-inputGroup" data-input-group="1">
-          <input
-            type="radio"
-            name="responseChoice"
-            id="radioInput1"
-            class="js-radioInput"
-            value=1
-          ></input>
-          <label
-            class="js-responseChoices js-responseChoice2"
-            for="radioInput1"
-          ></label>
-        </span>
-        <span class="js-responseMessage" data-response-message="1"></span>
-      </div>
-      <div class="js-inputGroupOuter">
-        <span class="js-inputGroup" data-input-group="2">
-          <input
-            type="radio"
-            name="responseChoice"
-            id="radioInput2"
-            value=2
-          ></input>
-          <label
-            class="js-responseChoices js-responseChoice3"
-            for="radioInput2"
-          ></label>
-        </span>
-        <span class="js-responseMessage" data-response-message="2"></span>
+    <form class="form" action="">
+      <h2 class="question js-question"></h2>
+      <ul class="responseChoices js-responseChoices">
+        <div class="inputGroupOuter js-inputGroupOuter">
+          <span class="inputGroup js-inputGroup" data-input-group="0">
+            <input
+              type="radio"
+              name="responseChoice"
+              id=radioInput0
+              class="radioInput js-radioInput"
+              value=0
+            ></input>
+            <label
+              class="responseChoice js-responseChoices js-responseChoice1"
+              for=radioInput0
+            ></label>
+          </span>
+          <span class="responseMessage js-responseMessage" data-response-message="0"></span>
+        </div>
+        <div class="inputGroupOuter js-inputGroupOuter">
+          <span class="inputGroup js-inputGroup" data-input-group="1">
+            <input
+              type="radio"
+              name="responseChoice"
+              id="radioInput1"
+              class="radioInput js-radioInput"
+              value=1
+            ></input>
+            <label
+              class="responseChoice js-responseChoices js-responseChoice2"
+              for="radioInput1"
+            ></label>
+          </span>
+          <span class="responseMessage js-responseMessage" data-response-message="1"></span>
+        </div>
+        <div class="inputGroupOuter js-inputGroupOuter">
+          <span class="inputGroup js-inputGroup" data-input-group="2">
+            <input
+              type="radio"
+              name="responseChoice"
+              id="radioInput2"
+              class="radioInput js-radioInput"
+              value=2
+            ></input>
+            <label
+              class="responseChoice js-responseChoices js-responseChoice3"
+              for="radioInput2"
+            ></label>
+          </span>
+          <span class="responseMessage js-responseMessage" data-response-message="2"></span>
 
-      </div>
-      <div class="js-inputGroupOuter">
-        <span class="js-inputGroup" data-input-group="3">
-          <input
-            type="radio"
-            name="responseChoice"
-            id="radioInput3"
-            value=3
-          ></input>
-          <label
-            class="js-responseChoices js-responseChoice4"
-            for="radioInput3"
-          ></label>
-        </span>
-        <span class="js-responseMessage" data-response-message="3"></span>
+        </div>
+        <div class="inputGroupOuter js-inputGroupOuter">
+          <span class="inputGroup js-inputGroup" data-input-group="3">
+            <input
+              type="radio"
+              name="responseChoice"
+              id="radioInput3"
+              class="radioInput js-radioInput"
+              value=3
+            ></input>
+            <label
+              class="responseChoice js-responseChoices js-responseChoice4"
+              for="radioInput3"
+            ></label>
+          </span>
+          <span class="responseMessage js-responseMessage" data-response-message="3"></span>
 
-      </div>
-    </ul>
-    <button class="js-button">Start Quiz</button>
-  </form>
-  <div class="js-scoreCard scoreCard">
-    <div class="answersCorrect"><span class="js-numOfCorrect"></span> Correct</div>
-    <div class="answersIncorrect"><span class="js-numOfIncorrect"></span> Incorrect</div>
+        </div>
+      </ul>
+      <button class="button js-button">Start Quiz</button>
+    </form>
+    <div class="scoreCard js-scoreCard">
+      <div class="answersCorrect"><span class="js-numOfCorrect"></span> Correct</div>
+      <div class="answersIncorrect"><span class="js-numOfIncorrect"></span> Incorrect</div>
+    </div>
   </div>
 
   <script
